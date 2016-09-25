@@ -26,7 +26,7 @@ public class Cajero extends JFrame {
 	public Cajero() {
 		super();
 		setSize(400, 550);
-		setTitle("Calculadora Simple");
+		setTitle("Cajero");
                 
                 setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setResizable(false);
