@@ -1,4 +1,3 @@
-
 package cajero;
 
 import java.awt.BorderLayout;
@@ -14,20 +13,20 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JOptionPane;
 
-public class Cajero extends JFrame {
-        
-	JTextField pantalla;
+public class Agregar extends Entrada {
+    
+        JTextField pantalla;
 	double resultado;
 	String operacion;
 	JPanel panelNumeros, panelOperaciones;
 	boolean nuevaOperacion = true;
-        int codiguito;
+        double saldo = 1000;
+        double cantidad;
         
-	public Cajero() {
+	public Agregar() {
 		super();
-		setSize(400, 500);
+		setSize(400, 400);
 		setTitle("Cajero");
                 
                 setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -47,19 +46,21 @@ public class Cajero extends JFrame {
 		panelNumeros = new JPanel();
 		panelNumeros.setLayout(new GridLayout(4, 3));
 		panelNumeros.setBorder(new EmptyBorder(4, 4, 4, 4));
-
-		for (int n = 0; n <= 9; n++) {
+                
+                
+                for (int n = 0; n <= 9; n++) {
 			nuevoBotonNumerico("" + n);
 		}
 
 		panel.add("Center", panelNumeros);
 
 		panelOperaciones = new JPanel();
-		panelOperaciones.setLayout(new GridLayout(4, 3));
+		panelOperaciones.setLayout(new GridLayout(8, 3));
 		panelOperaciones.setBorder(new EmptyBorder(4, 4, 4, 4));
 
-		nuevoBotonOperacion("Enter");
+		nuevoBotonOperacion("Agregar");
                 nuevoBotonOperacion("Borrar");
+                nuevoBotonOperacion("Regresar");
                 
                 
                      
@@ -67,25 +68,7 @@ public class Cajero extends JFrame {
 
 		validate();
 	}
-
-	private void nuevoBotonNumerico(String digito) {
-		JButton btn = new JButton();
-                btn.setBackground(Color.cyan);
-                btn.setForeground(Color.white);
-                btn.setFont(new Font("Arial", Font.BOLD, 25));
-		btn.setText(digito);
-		btn.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseReleased(MouseEvent evt) {
-				JButton btn = (JButton) evt.getSource();
-				numeroPulsado(btn.getText());
-			}
-		});
-		panelNumeros.add(btn);
-	}
-        
-	private void nuevoBotonOperacion(String operacion) {
+        private void nuevoBotonOperacion(String operacion) {
 		JButton btn = new JButton(operacion);
                 btn.setBackground(Color.pink);
                 btn.setForeground(Color.white);
@@ -101,8 +84,42 @@ public class Cajero extends JFrame {
 		});
 		panelOperaciones.add(btn);
 	}
+        private void operacionPulsado(String tecla) {
+		if (tecla.equals("Consultar")) {
+		} else if (tecla.equals("Agregar")) {
+                        cantidad = Double.parseDouble(pantalla.getText());
+                        dispose();
+                        Entrada enters = new Entrada();
+                        enters.setVisible(true);
+                
+		} else if (tecla.equals("Borrar")) {
+			resultado = 0;
+			pantalla.setText("0");
+			nuevaOperacion = true;
+		} else if (tecla.equals("Regresar")) {
+                        dispose();
+			Cajero caj = new Cajero();
+                        caj.setVisible(true);
+		}
+		
+        }
+        private void nuevoBotonNumerico(String digito) {
+		JButton btn = new JButton();
+                btn.setBackground(Color.cyan);
+                btn.setForeground(Color.white);
+                btn.setFont(new Font("Arial", Font.BOLD, 25));
+		btn.setText(digito);
+		btn.addMouseListener(new MouseAdapter() {
 
-	private void numeroPulsado(String digito) {
+			@Override
+			public void mouseReleased(MouseEvent evt) {
+				JButton btn = (JButton) evt.getSource();
+				numeroPulsado(btn.getText());
+			}
+		});
+		panelNumeros.add(btn);
+	}
+        private void numeroPulsado(String digito) {
 		if (pantalla.getText().equals("0") || nuevaOperacion) {
 			pantalla.setText(digito);
 		} else {
@@ -111,19 +128,11 @@ public class Cajero extends JFrame {
 		nuevaOperacion = false;
 	}
 
-	private void operacionPulsado(String tecla) {
-		if (tecla.equals("Borrar")) {
-			resultado = 0;
-			pantalla.setText("0");
-			nuevaOperacion = true;
-		} else if (tecla.equals("Enter")) {
-                        if (pantalla.getText().equals("1975")){
-                            dispose();
-                            Entrada enters = new Entrada();
-                            enters.setVisible(true);
-                        } else {
-                            JOptionPane.showMessageDialog(null,"Código Incorrecto");
+  
+    double getCantidad() {
+        return cantidad;
     }
-                      }
-		}
-	}
+        
+        
+
+}
