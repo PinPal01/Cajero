@@ -8,7 +8,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -37,32 +36,20 @@ public class Entrada extends Cajero {
 		JPanel panel = (JPanel) this.getContentPane();
 		panel.setLayout(new BorderLayout());
                 
-		pantalla = new JTextField("0", 20);
-		pantalla.setBorder(new EmptyBorder(4, 4, 4, 4));
-		pantalla.setFont(new Font("Arial", Font.BOLD, 25));
-		pantalla.setHorizontalAlignment(JTextField.RIGHT);
-		pantalla.setEditable(false);
-		pantalla.setBackground(Color.WHITE);
-		panel.add("North", pantalla);
 
-		panelNumeros = new JPanel();
-		panelNumeros.setLayout(new GridLayout(4, 3));
-		panelNumeros.setBorder(new EmptyBorder(4, 4, 4, 4));
-
-
-		panel.add("Center", panelNumeros);
 
 		panelOperaciones = new JPanel();
-		panelOperaciones.setLayout(new GridLayout(8, 3));
-		panelOperaciones.setBorder(new EmptyBorder(4, 4, 4, 4));
+		panelOperaciones.setLayout(new GridLayout(6, 4));
+		panelOperaciones.setBorder(new EmptyBorder(25, 25, 4, 25));
 
 		nuevoBotonOperacion("Consultar");
 		nuevoBotonOperacion("Agregar");
                 nuevoBotonOperacion("Tomar");
+                nuevoBotonOperacion("Salir");
                 
                 
                      
-		panel.add("East", panelOperaciones);
+		panel.add("Center", panelOperaciones);
 
 		validate();
 	}
@@ -95,6 +82,10 @@ public class Entrada extends Cajero {
 			resultado = 0;
 			pantalla.setText("0");
 			nuevaOperacion = true;
+		} else if (tecla.equals("Salir")) {
+			dispose();
+			Cajero caja = new Cajero();
+                        caja.setVisible(true);
 		}
 		
         }	

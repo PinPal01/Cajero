@@ -8,7 +8,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -42,13 +41,14 @@ public class Agregar extends Entrada {
 		pantalla.setEditable(false);
 		pantalla.setBackground(Color.WHITE);
 		panel.add("North", pantalla);
+                
 
 		panelNumeros = new JPanel();
 		panelNumeros.setLayout(new GridLayout(4, 3));
 		panelNumeros.setBorder(new EmptyBorder(4, 4, 4, 4));
                 
                 
-                for (int n = 0; n <= 9; n++) {
+                for (int n = 9; n >= 0; n--) {
 			nuevoBotonNumerico("" + n);
 		}
 
@@ -98,8 +98,8 @@ public class Agregar extends Entrada {
 			nuevaOperacion = true;
 		} else if (tecla.equals("Regresar")) {
                         dispose();
-			Cajero caj = new Cajero();
-                        caj.setVisible(true);
+			Entrada enter = new Entrada();
+                        enter.setVisible(true);
 		}
 		
         }

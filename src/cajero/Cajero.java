@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPasswordField;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -27,7 +28,7 @@ public class Cajero extends JFrame {
         
 	public Cajero() {
 		super();
-		setSize(400, 500);
+		setSize(400, 400);
 		setTitle("Cajero");
                 
                 setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -36,7 +37,7 @@ public class Cajero extends JFrame {
 		JPanel panel = (JPanel) this.getContentPane();
 		panel.setLayout(new BorderLayout());
                 
-		pantalla = new JTextField("0", 20);
+		pantalla = new JPasswordField("", 200);
 		pantalla.setBorder(new EmptyBorder(4, 4, 4, 4));
 		pantalla.setFont(new Font("Arial", Font.BOLD, 25));
 		pantalla.setHorizontalAlignment(JTextField.RIGHT);
@@ -48,14 +49,14 @@ public class Cajero extends JFrame {
 		panelNumeros.setLayout(new GridLayout(4, 3));
 		panelNumeros.setBorder(new EmptyBorder(4, 4, 4, 4));
 
-		for (int n = 0; n <= 9; n++) {
+		for (int n = 9; n >= 0; n--) {
 			nuevoBotonNumerico("" + n);
 		}
 
 		panel.add("Center", panelNumeros);
 
 		panelOperaciones = new JPanel();
-		panelOperaciones.setLayout(new GridLayout(4, 3));
+		panelOperaciones.setLayout(new GridLayout(8, 3));
 		panelOperaciones.setBorder(new EmptyBorder(4, 4, 4, 4));
 
 		nuevoBotonOperacion("Enter");
@@ -103,7 +104,7 @@ public class Cajero extends JFrame {
 	}
 
 	private void numeroPulsado(String digito) {
-		if (pantalla.getText().equals("0") || nuevaOperacion) {
+		if (pantalla.getText().equals("") || nuevaOperacion) {
 			pantalla.setText(digito);
 		} else {
 			pantalla.setText(pantalla.getText() + digito);
@@ -114,7 +115,7 @@ public class Cajero extends JFrame {
 	private void operacionPulsado(String tecla) {
 		if (tecla.equals("Borrar")) {
 			resultado = 0;
-			pantalla.setText("0");
+			pantalla.setText("");
 			nuevaOperacion = true;
 		} else if (tecla.equals("Enter")) {
                         if (pantalla.getText().equals("1975")){
